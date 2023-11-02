@@ -7,31 +7,31 @@ export const metadata = {
   BreathImage: {
     title: "Breathing",
     tags:  "face,mouth,breath",
-    path:  "/images/Breathe.png"
+    path:  "images/Breathe.png"
   },
   CheckMarkImg: {
     title: "Check Mark",
     tags:  "icon",
-    path:  "/images/check.png"
+    path:  "images/check.png"
   },
   RedXImg: {
     title: "Red X",
     tags:  "icon",
-    path:  "/images/nobueno.png"
+    path:  "images/nobueno.png"
   },
   GreenWhitePillImg: {
     title: "Green and White Pill",
     tags:  "icon",
-    path:  "/images/pill.png"
+    path:  "images/pill.png"
   },
   StomachImg: {
     title: "Stomach",
     tags:  "pain",
-    path:  "/images/stummy.png"
+    path:  "images/stummy.png"
   },
   ThermometerImg: {
     title: "Thermometer",
     tags:  "icon",
-    path:  "/images/thermo.png"
+    path:  "images/thermo.png"
   }
 };
