@@ -1,24 +1,20 @@
-import preprocess from 'svelte-preprocess';
-import adapter from '@sveltejs/adapter-static';
+import adapter from "@sveltejs/adapter-static"; 
+// was "@sveltejs/adapter-auto"
 
-/** @type {import('@sveltejs/kit').Config} */
+const dev = "production" === "development";
+
+/** @type {import(""@sveltejs/kit").Config} */
 const config = {
- // Consult https://github.com/sveltejs/svelte-preprocess
- // for more information about preprocessors
- preprocess: preprocess(),
-
- kit: {
- // hydrate the <div id="svelte"> element in src/app.html
-	adapter: adapter({
-		strict: false,
-		pages: 'build',
-		assets: 'build',
-		fallback: null
-	}),
-	paths: {
-		base: '/BeyondWordsProj/build'
+	kit: {
+		adapter: adapter({
+			pages: "docs",
+			assets: "docs"
+		}),
+		//paths: {
+			// change below to your repo name
+			//base: dev ? "" : "/BeyondWordsProj",
+		//},
 	}
- }
 };
 
 export default config;
