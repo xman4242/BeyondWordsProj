@@ -2,7 +2,7 @@ export const metadata = {
   BackPainImg: {
     title: "Back Pain",
     tags:  "pain,back,spine",
-    path:  "/images/BackPain.png"
+    path:  "images/BackPain.png"
   },
   BreathImage: {
     title: "Breathing",
