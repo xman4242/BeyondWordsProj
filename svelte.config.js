@@ -16,7 +16,7 @@ const config = {
 		fallback: null
 	}),
 	paths: {
-		base: '/BeyondWordsProj'
+		base: '/BeyondWordsProj/build'
 	}
  }
 };
