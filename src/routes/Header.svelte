@@ -1,5 +1,5 @@
 <script>
-	import logo from '$lib/images/UNMCLogo.svg';
+	let logo = 'images/UNMCLogo.svg';
 </script>
 
 <header>
