@@ -1,4 +1,4 @@
-# This is a basic workflow to automatically build a Svelte app and deploy it to GitHub Pages
+# This is a basic workflow to automatically build a Svelte app and deploy it to GitHub Pages PLEASE
 name: Deploy to GitHub Pages
 
 on:
