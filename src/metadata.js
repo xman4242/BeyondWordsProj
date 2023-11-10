@@ -33,5 +33,40 @@ export const metadata = {
     title: "Thermometer",
     tags:  "icon",
     path:  "images/thermo.png"
+  },
+  AlchoholImg: {
+    title: "Alchohol",
+    tags:  "icon",
+    path:  "images/alc.png"
+  },
+  CarCrashImg: {
+    title: "Car Crash",
+    tags:  "accident",
+    path:  "images/carcrash.png"
+  },
+  FeverImg: {
+    title: "Fever",
+    tags:  "icon",
+    path:  "images/fever.png"
+  },
+  HeadacheImg: {
+    title: "Headache",
+    tags:  "pain",
+    path:  "images/headache.png"
+  },
+  NauseaImg: {
+    title: "Nausea",
+    tags:  "pain",
+    path:  "images/nausea.png"
+  },
+  RashImg: {
+    title: "Rash",
+    tags:  "pain",
+    path:  "images/rash.png"
+  },
+  VomitImg: {
+    title: "Vomit",
+    tags:  "pain",
+    path:  "images/vomit.png"
   }
 };
