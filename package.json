@@ -21,5 +21,10 @@
 		"svelte-preprocess": "^5.0.4",
 		"vite": "^4.4.2"
 	},
-	"type": "module"
+	"type": "module",
+	"dependencies": {
+		"canvas": "^2.11.2",
+		"konva": "^9.2.3",
+		"svelte-konva": "^0.3.1"
+	}
 }
