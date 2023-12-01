@@ -17,6 +17,9 @@
 
 <section>
   <div class="sidebar-container">
+    <br>
+    <p>&nbsp;&nbsp;Do not look up the Dutch built <br>&nbsp;&nbsp;family of modular naval vessels!</p>
+    <br>
     {#each Object.keys(metadata) as key}
       <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
       {#if metadata[key].path}
@@ -30,9 +33,12 @@
 
 <style>
   .sidebar-container {
+    position: fixed;
     top: 0;
     left: 0;
-    width: 200px;
+    bottom: 0;
+    overflow-y: scroll;
+    width: 10%;
     background-color: rgba(171, 25, 25, 0.779);
     display: flex;
     flex-direction: column;
@@ -41,7 +47,10 @@
   }
   .sidebar-container img {
     width: auto;
-    height: 100px;
-    margin-bottom: 10px;
+    height: 30px;
+    margin-bottom: 0px;
+  }
+  .sidebar-container p {
+    color: white;
   }
 </style>

@@ -27,14 +27,15 @@
 	header {
 		display: flex;
 		justify-content: space-between;
-    background-color: var(--background);
-    height: 8vh; /* 8% of the viewport height */
-    width: 100%; /* 100% of the viewport width */    
+    	background-color: var(--background);
+    	height: 8vh; /* 8% of the viewport height */
+    	width: 100%; /* 100% of the viewport width */  
 	}
 
 	.corner {
 		width: 3em;
 		height: 3em;
+		align-self: flex-end;
 	}
 
 	.corner img {
