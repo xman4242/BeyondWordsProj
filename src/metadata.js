@@ -20,7 +20,7 @@ export const metadata = {
     path:  "images/nobueno.png"
   },
   GreenWhitePillImg: {
-    title: "Green and White Pill",
+    title: "Pill",
     tags:  "icon",
     path:  "images/pill.png"
   },
