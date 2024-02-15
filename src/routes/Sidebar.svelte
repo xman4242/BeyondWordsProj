@@ -46,11 +46,12 @@
     justify-content: center;
   }
   .sidebar-container img {
-    width: auto;
-    height: 30px;
+    width: 50px;
+    height: 50px;
     margin-bottom: 0px;
   }
   .sidebar-container p {
     color: white;
+    font-size: x-small;
   }
 </style>
