@@ -35,14 +35,16 @@
     top: 0;
     left: 0;
     position: left;
-    margin: 0;
+    margin: auto;
     padding: 0;
     width: 200px;
     background-color: rgba(171, 25, 25, 0.779);
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    position: fixed;
+    z-index: 99;
+    height: 100%;
+    overflow-y: scroll;
   }
   .imgTitle {
     color: rgb(247, 247, 247);
