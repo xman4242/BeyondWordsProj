@@ -1,17 +1,46 @@
-<script>
+<script context="module">
   import { Stage, Layer, Rect, Image } from "svelte-konva";
-  import { onMount } from "svelte";
+  
+  export function createDraggableImage(imagePath) {
+    var group = new Konva.Group({
+        draggable: true,
+       });
+      var imageObj = new Image({
+        src: imagePath,
+        target: "MainCanvas"      
+      });
+      imageObj.onload = function () {
+        var konvaImage = new Konva.Image({
+          image: imageObj,
+          width: this.width,
+          height: this.height,
+        });
+        group.add(konvaImage);
+        addAnchor(group, 0, 0, "topLeft");
+        addAnchor(group, this.width, 0, "topRight");
+        addAnchor(group, this.width, this.height, "bottomRight");
+        addAnchor(group, 0, this.height, "bottomLeft");
+      };
+      imageObj.src = imagePath;
+
+      group.on("contextmenu", function (e) {
+        e.evt.preventDefault(); // Prevent default right-click behavior
+        group.remove(); // Remove the image group from the layer
+        layer.batchDraw(); // Redraw the layer
+      });
+
+      layer.add(group);
+    }
 </script>
 
 <body>
   <div id="MainCanvas"></div>
   <script>
-    var width = window.innerWidth;
+    var width = window.innerWidth - 200; // Subtracting 200px for the sidebar width
     var height = window.innerHeight;
 
     function update(activeAnchor) {
       var group = activeAnchor.getParent();
-
       var topLeft = group.findOne(".topLeft");
       var topRight = group.findOne(".topRight");
       var bottomRight = group.findOne(".bottomRight");
@@ -21,35 +50,49 @@
       var anchorX = activeAnchor.x();
       var anchorY = activeAnchor.y();
 
-      // update anchor positions
+      // calculate new width and height while maintaining aspect ratio
+      var width = image.width() * image.scaleX();
+      var height = image.height() * image.scaleY();
+      var aspectRatio = width / height;
+
+      var newWidth, newHeight;
       switch (activeAnchor.getName()) {
         case "topLeft":
-          topRight.y(anchorY);
+          newWidth = topRight.x() - anchorX;
+          newHeight = newWidth / aspectRatio;
+          topLeft.y(anchorY);
           bottomLeft.x(anchorX);
           break;
         case "topRight":
+          newWidth = anchorX - topLeft.x();
+          newHeight = newWidth / aspectRatio;
           topLeft.y(anchorY);
-          bottomRight.x(anchorX);
-          break;
-        case "bottomRight":
-          bottomLeft.y(anchorY);
           topRight.x(anchorX);
           break;
+        case "bottomRight":
+          newWidth = anchorX - topLeft.x();
+          newHeight = newWidth / aspectRatio;
+          bottomLeft.y(anchorY);
+          bottomRight.x(anchorX);
+          break;
         case "bottomLeft":
+          newWidth = topRight.x() - anchorX;
+          newHeight = newWidth / aspectRatio;
           bottomRight.y(anchorY);
-          topLeft.x(anchorX);
+          bottomLeft.x(anchorX);
           break;
       }
 
-      image.position(topLeft.position());
+      image.width(newWidth);
+      image.height(newHeight);
 
-      var width = topRight.x() - topLeft.x();
-      var height = bottomLeft.y() - topLeft.y();
-      if (width && height) {
-        image.width(width);
-        image.height(height);
-      }
+      // update the position of the anchors
+      topLeft.position({ x: 0, y: 0 });
+      topRight.position({ x: newWidth, y: 0 });
+      bottomRight.position({ x: newWidth, y: newHeight });
+      bottomLeft.position({ x: 0, y: newHeight });
     }
+
     function addAnchor(group, x, y, name) {
       var stage = group.getStage();
       var layer = group.getLayer();
@@ -88,6 +131,11 @@
         this.strokeWidth(2);
       });
       group.add(anchor);
+    }
+
+    function deleteImage(group) {
+      group.destroy();
+      layer.draw();
     }
 
     var stage = new Konva.Stage({
@@ -146,6 +194,17 @@
       crashImg.image(imageObj2);
     };
     imageObj2.src = "images/carcrash.png";
+
+    // Delete image on right-click
+    pillGroup.on("contextmenu", function (e) {
+      e.evt.preventDefault(); // Prevent default right-click menu
+      deleteImage(pillGroup);
+    });
+
+    crashGroup.on("contextmenu", function (e) {
+      e.evt.preventDefault(); // Prevent default right-click menu
+      deleteImage(crashGroup);
+    });
   </script>
 </body>
 

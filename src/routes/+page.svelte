@@ -10,7 +10,9 @@
 <Header />
 <div class="MainDisplay">
     <Sidebar />
-    <Resize />
+    <div>
+        <Resize />
+    </div>
 </div>
 
 
@@ -24,5 +26,6 @@
     .MainDisplay {
         display: flex;
         flex-direction: row;
+        justify-content: space-between;
     }
 </style>
