@@ -1,3 +1,7 @@
+export const imgData = {
+  clickedImg: 'l',
+  needsUpdate: false
+};
 export const metadata = {
   BackPainImg: {
     title: "Back Pain",

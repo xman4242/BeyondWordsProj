@@ -1,17 +1,16 @@
 <script context="module">
   import { Stage, Layer, Rect, Image } from "svelte-konva";
-  
+  import { metadata, imgData} from '../metadata.js';
   export function createDraggableImage(imagePath) {
     var group = new Konva.Group({
         draggable: true,
        });
-      var imageObj = new Image({
-        src: imagePath,
-        target: "MainCanvas"      
-      });
-      imageObj.onload = function () {
+      var newImage = document.createElement("img");
+      newImage.src = imagePath;
+
+      newImage.onload = function () {
         var konvaImage = new Konva.Image({
-          image: imageObj,
+          image: newImage,
           width: this.width,
           height: this.height,
         });
@@ -21,7 +20,7 @@
         addAnchor(group, this.width, this.height, "bottomRight");
         addAnchor(group, 0, this.height, "bottomLeft");
       };
-      imageObj.src = imagePath;
+      
 
       group.on("contextmenu", function (e) {
         e.evt.preventDefault(); // Prevent default right-click behavior
@@ -146,54 +145,6 @@
 
     var layer = new Konva.Layer();
     stage.add(layer);
-
-    // pill
-    var pillImg = new Konva.Image({
-      width: 200,
-      height: 137,
-    });
-
-    // car crash
-    var crashImg = new Konva.Image({
-      width: 93,
-      height: 104,
-    });
-
-    var pillGroup = new Konva.Group({
-      x: 180,
-      y: 50,
-      draggable: true,
-    });
-    layer.add(pillGroup);
-    pillGroup.add(pillImg);
-    addAnchor(pillGroup, 0, 0, "topLeft");
-    addAnchor(pillGroup, 200, 0, "topRight");
-    addAnchor(pillGroup, 200, 138, "bottomRight");
-    addAnchor(pillGroup, 0, 138, "bottomLeft");
-
-    var crashGroup = new Konva.Group({
-      x: 20,
-      y: 110,
-      draggable: true,
-    });
-    layer.add(crashGroup);
-    crashGroup.add(crashImg);
-    addAnchor(crashGroup, 0, 0, "topLeft");
-    addAnchor(crashGroup, 93, 0, "topRight");
-    addAnchor(crashGroup, 93, 104, "bottomRight");
-    addAnchor(crashGroup, 0, 104, "bottomLeft");
-
-    var imageObj1 = new Image();
-    imageObj1.onload = function () {
-      pillImg.image(imageObj1);
-    };
-    imageObj1.src = "images/pill.png";
-
-    var imageObj2 = new Image();
-    imageObj2.onload = function () {
-      crashImg.image(imageObj2);
-    };
-    imageObj2.src = "images/carcrash.png";
 
     // Delete image on right-click
     pillGroup.on("contextmenu", function (e) {

@@ -1,18 +1,17 @@
 <script>
-  import { metadata } from '../metadata.js';
+  import { metadata, imgData} from '../metadata.js';
   import Resize, {createDraggableImage} from './Resize.svelte';
-  let selectedImagePath = '';
-
+  
   function imageClicked(key) {
     // Handle the click event for the image with the given key
-    const clickedImage = metadata[key];
+    imgData.clickedImg = metadata[key];
     
     // Set the selectedImagePath variable to the path of the clicked image
-    selectedImagePath = clickedImage.path;
+    let selectedImagePath = imgData.clickedImg.path;
     
     // You can now access the clicked image's information
-    console.log(`Clicked on image with title: ${clickedImage.title}`);
-    console.log(`Image path: ${clickedImage.path}`);
+    console.log(`Clicked on image with title: ${imgData.clickedImg.title}`);
+    console.log(`Image path: ${imgData.clickedImg.path}`);
     createDraggableImage(selectedImagePath);
   }
 </script>
