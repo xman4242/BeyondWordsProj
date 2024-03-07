@@ -2,6 +2,7 @@
   import { Stage, Layer, Rect, Image } from "svelte-konva";
   import { metadata, imgData} from '../metadata.js';
   export function createDraggableImage(imagePath) {
+    console.log("Creating draggable image...");
     var group = new Konva.Group({
         draggable: true,
        });

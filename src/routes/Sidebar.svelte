@@ -8,10 +8,7 @@
     
     // Set the selectedImagePath variable to the path of the clicked image
     let selectedImagePath = imgData.clickedImg.path;
-    
-    // You can now access the clicked image's information
-    console.log(`Clicked on image with title: ${imgData.clickedImg.title}`);
-    console.log(`Image path: ${imgData.clickedImg.path}`);
+  
     createDraggableImage(selectedImagePath);
   }
 </script>
