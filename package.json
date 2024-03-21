@@ -24,6 +24,7 @@
 	"type": "module",
 	"dependencies": {
 		"canvas": "^2.11.2",
+		"jspdf": "^2.5.1",
 		"konva": "^9.3.2",
 		"svelte-konva": "^0.3.1"
 	}

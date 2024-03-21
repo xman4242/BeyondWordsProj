@@ -1,36 +1,44 @@
 <script context="module">
   import { Stage, Layer, Rect, Image } from "svelte-konva";
-  import { metadata, imgData} from '../metadata.js';
+  import { metadata, imgData } from "../metadata.js";
+  import jsPDF from "jspdf";
+
+  export function saveAsPDF() {
+    var stage = document.querySelector("canvas");
+    var pdf = new jsPDF("landscape", "px", [stage.width, stage.height]);
+    pdf.addImage(stage.toDataURL(), "PNG", 0, 0, stage.width, stage.height);
+    pdf.save("stage.pdf");
+  }
   export function createDraggableImage(imagePath) {
     console.log("Creating draggable image...");
     var group = new Konva.Group({
-        draggable: true,
-       });
-      var newImage = document.createElement("img");
-      newImage.src = imagePath;
+      draggable: true,
+    });
+    var newImage = document.createElement("img");
+    newImage.src = imagePath;
 
-      newImage.onload = function () {
-        var konvaImage = new Konva.Image({
-          image: newImage,
-          width: this.width,
-          height: this.height,
-        });
-        group.add(konvaImage);
-        addAnchor(group, 0, 0, "topLeft");
-        addAnchor(group, this.width, 0, "topRight");
-        addAnchor(group, this.width, this.height, "bottomRight");
-        addAnchor(group, 0, this.height, "bottomLeft");
-      };
-      
-
-      group.on("contextmenu", function (e) {
-        e.evt.preventDefault(); // Prevent default right-click behavior
-        group.remove(); // Remove the image group from the layer
-        layer.batchDraw(); // Redraw the layer
+    newImage.onload = function () {
+      var konvaImage = new Konva.Image({
+        image: newImage,
+        width: this.width,
+        height: this.height,
       });
+      group.add(konvaImage);
+      addAnchor(group, 0, 0, "topLeft");
+      addAnchor(group, this.width, 0, "topRight");
+      addAnchor(group, this.width, this.height, "bottomRight");
+      addAnchor(group, 0, this.height, "bottomLeft");
+      
+    };
 
-      layer.add(group);
-    }
+    group.on("contextmenu", function (e) {
+      e.evt.preventDefault(); // Prevent default right-click behavior
+      group.remove(); // Remove the image group from the layer
+      layer.batchDraw(); // Redraw the layer
+    });
+
+    layer.add(group);
+  }
 </script>
 
 <body>
@@ -49,19 +57,22 @@
 
       var anchorX = activeAnchor.x();
       var anchorY = activeAnchor.y();
-
+      
       // calculate new width and height while maintaining aspect ratio
       var width = image.width() * image.scaleX();
       var height = image.height() * image.scaleY();
+      var oldTopLeftX = topLeft.x();
+      var oldTopLeftY = topLeft.y();
+      
       var aspectRatio = width / height;
 
       var newWidth, newHeight;
       switch (activeAnchor.getName()) {
         case "topLeft":
-          newWidth = topRight.x() - anchorX;
+          newWidth = bottomRight.x() - anchorX;
           newHeight = newWidth / aspectRatio;
-          topLeft.y(anchorY);
-          bottomLeft.x(anchorX);
+          topRight.y(anchorY);
+          topLeft.x(anchorX);
           break;
         case "topRight":
           newWidth = anchorX - topLeft.x();
@@ -147,16 +158,6 @@
     var layer = new Konva.Layer();
     stage.add(layer);
 
-    // Delete image on right-click
-    pillGroup.on("contextmenu", function (e) {
-      e.evt.preventDefault(); // Prevent default right-click menu
-      deleteImage(pillGroup);
-    });
-
-    crashGroup.on("contextmenu", function (e) {
-      e.evt.preventDefault(); // Prevent default right-click menu
-      deleteImage(crashGroup);
-    });
   </script>
 </body>
 

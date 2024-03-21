@@ -1,24 +1,25 @@
 <script>
-	let logo = 'images/UNMCLogo.svg';
+	let logo = "images/UNMCLogo.svg";
+	import Resize, {saveAsPDF} from "./Resize.svelte";
 </script>
 
 <header>
-	<div class = "corner">
-	</div>
+	<div class="corner"></div>
 
 	<nav>
 		<svg viewBox="0 0 2 3" aria-hidden="true">
 			<path d="M0,0 L1,2 C1.5,3 1.5,3 2,3 L2,0 Z" />
 		</svg>
-		
+
 		<p>Welcome to Beyond Words!</p>
-			
+
 		<svg viewBox="0 0 2 3" aria-hidden="true">
 			<path d="M0,0 L0,3 C0.5,3 0.5,3 1,2 L2,0 Z" />
 		</svg>
 	</nav>
 
 	<div class="corner">
+		<button on:click={saveAsPDF}> Print </button>
 		<img src={logo} alt="UNMC Logo" />
 	</div>
 </header>
@@ -27,9 +28,9 @@
 	header {
 		display: flex;
 		justify-content: space-between;
-    background-color: var(--background);
-    height: 8vh; /* 8% of the viewport height */
-    width: 100%; /* 100% of the viewport width */    
+		background-color: var(--background);
+		height: 8vh; /* 8% of the viewport height */
+		width: 100%; /* 100% of the viewport width */
 	}
 
 	.corner {
@@ -48,7 +49,7 @@
 		display: flex;
 		justify-content: center;
 		--background: rgba(255, 255, 255, 0.7);
-		--unmc_color: rgba(156,45,51,1);
+		--unmc_color: rgba(156, 45, 51, 1);
 	}
 
 	svg {
@@ -81,5 +82,4 @@
 		height: 100%;
 		align-items: center;
 	}
-
 </style>

@@ -1,14 +1,14 @@
 <script>
-  import { metadata, imgData} from '../metadata.js';
-  import Resize, {createDraggableImage} from './Resize.svelte';
-  
+  import { metadata, imgData } from "../metadata.js";
+  import Resize, { createDraggableImage } from "./Resize.svelte";
+
   function imageClicked(key) {
     // Handle the click event for the image with the given key
     imgData.clickedImg = metadata[key];
-    
+
     // Set the selectedImagePath variable to the path of the clicked image
     let selectedImagePath = imgData.clickedImg.path;
-  
+
     createDraggableImage(selectedImagePath);
   }
 </script>
@@ -20,7 +20,11 @@
       {#if metadata[key].path}
         <!-- svelte-ignore a11y-click-events-have-key-events -->
         <div class="ImgContainer">
-          <img src={metadata[key].path} alt={metadata[key].title} on:click={() => imageClicked(key)} />
+          <img
+            src={metadata[key].path}
+            alt={metadata[key].title}
+            on:click={() => imageClicked(key)}
+          />
           <p class="imgTitle">{metadata[key].title}</p>
         </div>
       {/if}
