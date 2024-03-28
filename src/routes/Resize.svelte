@@ -17,7 +17,6 @@
     });
 
     var newImage = document.createElement("img");
-    console.log("layer: ", layer);
     newImage.src = imagePath;
 
     newImage.onload = function () {
