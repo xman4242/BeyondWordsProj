@@ -72,5 +72,10 @@ export const metadata = {
     title: "Vomit",
     tags:  "pain",
     path:  "images/vomit.png"
-  }
+  },
+  WordImg: {
+    title: "Words",
+    tags: "words",
+    path: "images/words.png"
+  },
 };
