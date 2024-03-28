@@ -72,5 +72,10 @@ export const metadata = {
     title: "Vomit",
     tags:  "pain",
     path:  "images/vomit.png"
+  },
+  PainImg: {
+    title: "General Pain",
+    tags:  "pain",
+    path:  "images/pain.png"
   }
 };
