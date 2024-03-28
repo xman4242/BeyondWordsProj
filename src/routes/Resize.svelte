@@ -24,10 +24,10 @@
         height: this.height,
       });
       group.add(konvaImage);
-      addAnchor(group, 0, 0, "topLeft");
-      addAnchor(group, this.width, 0, "topRight");
+      addAnchor(group, 0, 0, "topLeft", true);
+      addAnchor(group, this.width, 0, "topRight", true);
       addAnchor(group, this.width, this.height, "bottomRight");
-      addAnchor(group, 0, this.height, "bottomLeft");
+      addAnchor(group, 0, this.height, "bottomLeft",true);
       
     };
 
@@ -103,16 +103,18 @@
       bottomRight.position({ x: newWidth, y: newHeight });
       bottomLeft.position({ x: 0, y: newHeight });
     }
-
-    function addAnchor(group, x, y, name) {
+    function addAnchor(group, x, y, name, invisible = false, stroke = "#666", fill = "#ddd") {
       var stage = group.getStage();
       var layer = group.getLayer();
-
+      if (invisible) {
+        stroke = "transparent";
+        fill = "transparent";
+      }
       var anchor = new Konva.Circle({
         x: x,
         y: y,
-        stroke: "#666",
-        fill: "#ddd",
+        stroke: stroke,
+        fill: fill,
         strokeWidth: 2,
         radius: 8,
         name: name,
