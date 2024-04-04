@@ -76,6 +76,6 @@ export const metadata = {
   WordImg: {
     title: "Words",
     tags: "words",
-    path: "images/words.png"
+    path: "/docs/images/words.png"
   },
 };
