@@ -72,5 +72,45 @@ export const metadata = {
     title: "Vomit",
     tags:  "pain",
     path:  "images/vomit.png"
+  },
+  PancreasImg: {
+    title: "Pancreas",
+    tags: "pain",
+    path: "images/pancreas.png"
+  },
+  LungsImg: {
+    title: "Lungs",
+    tags: "pain",
+    path: "images/lungs.png"
+  },
+  PainImg: {
+    title: "Pain",
+    tags: "pain",
+    path: "images/pain2.png"
+  },
+  LipsImg: {
+    title: "Lips",
+    tags: "pain",
+    path: "images/lips.png"
+  },
+  KidneysImg: {
+    title: "Kidneys",
+    tags: "pain",
+    path: "images/kidneys.png"
+  },
+  EarImg: {
+    title: "Ear",
+    tags: "pain",
+    path: "images/ear.png"
+  },
+  LiverImg: {
+    title: "Liver",
+    tags: "pain",
+    path: "images/liver2.png"
+  },
+  BodyDiagramImg: {
+    title: "Body Diagram",
+    tags: "pain",
+    path: "images/BodyDiagram.png"
   }
 };

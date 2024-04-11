@@ -22,8 +22,8 @@
     newImage.onload = function () {
       var konvaImage = new Konva.Image({
         image: newImage,
-        width: this.width,
-        height: this.height,
+        width: 200,
+        height: 200,
       });
       group.add(konvaImage);
 
@@ -36,7 +36,7 @@
         if (e.target === stage) {
           tr.nodes([]);
         }
-
+ 
         if (e.target == konvaImage) {
           tr.nodes([konvaImage]);
         }
@@ -173,91 +173,6 @@
     stage.add(layer);
   </script>
 </body>
-
-<!-- <!DOCTYPE html>
-<html>
-<head>
-    USE DEVELOPMENT VERSION -->
-<!-- <script src="https://unpkg.com/konva@9.3.6/konva.min.js"></script>
-    <meta charset="utf-8" />
-    <title>Konva Transform Events Demo</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-            background-color: #f0f0f0;
-        }
-    </style>
-</head> -->
-
-<!-- <body>
-<div id="container"></div>
-<script>
-    var width = window.innerWidth;
-    var height = window.innerHeight;
-
-    var stage = new Konva.Stage({
-        container: 'container',
-        width: width,
-        height: height,
-    });
-
-    var layer = new Konva.Layer();
-    stage.add(layer);
-
-    var imageObj = new Image();
-    imageObj.onload = function() {
-        var Lizimage = new Konva.Image({
-            x: 160,
-            y: 60,
-            width: 100,
-            height: 90,
-            image: imageObj,
-            draggable: true,
-        });
-        layer.add(Lizimage);
-
-        // create new transformer
-        var tr = new Konva.Transformer();
-        layer.add(tr);
-        tr.nodes([Lizimage]);
-
-        Lizimage.on('transformstart', function () {
-            console.log('transform start');
-        });
-
-        Lizimage.on('dragmove', function () {
-            updateText();
-        });
-        Lizimage.on('transform', function () {
-            updateText();
-            console.log('transform');
-        });
-
-        Lizimage.on('transformend', function () {
-            console.log('transform end');
-        });
-
-        stage.on('click', function(e) {
-            // Check if the clicked target is not the image
-            if (e.target === stage) {
-                tr.nodes([]);
-            }
-
-            if (e.target == Lizimage) {
-                tr.nodes ([Lizimage]);
-            }
-        });
-    };
-    imageObj.src = "https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg";
-
-    function updateText() {
-        // Implement your update text logic here
-    }
-</script>
-</body>
-</html> -->
 
 <style>
   body {
