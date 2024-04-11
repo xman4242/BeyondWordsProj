@@ -1,6 +1,6 @@
 <script>
   import { metadata, imgData } from "../metadata.js";
-  import Resize, { createDraggableImage } from "./Resize.svelte";
+  import Resize, { createDraggableImage, createTextbox } from "./Resize.svelte";
 
   function imageClicked(key) {
     // Handle the click event for the image with the given key
@@ -8,8 +8,12 @@
 
     // Set the selectedImagePath variable to the path of the clicked image
     let selectedImagePath = imgData.clickedImg.path;
-
-    createDraggableImage(selectedImagePath);
+    
+    if (key != 'WordImg'){
+      createDraggableImage(selectedImagePath);
+    } else {
+      createTextbox()
+    }
   }
 </script>
 
