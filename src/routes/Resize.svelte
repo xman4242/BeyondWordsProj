@@ -9,26 +9,38 @@
     pdf.addImage(stage.toDataURL(), "PNG", 0, 0, stage.width, stage.height);
     pdf.save("stage.pdf");
   }
+
   export function createDraggableImage(imagePath) {
     console.log("Creating draggable image...");
     var group = new Konva.Group({
       draggable: true,
     });
+
     var newImage = document.createElement("img");
     newImage.src = imagePath;
 
     newImage.onload = function () {
       var konvaImage = new Konva.Image({
         image: newImage,
-        width: this.width,
-        height: this.height,
+        width: 200,
+        height: 200,
       });
       group.add(konvaImage);
-      addAnchor(group, 0, 0, "topLeft", true);
-      addAnchor(group, this.width, 0, "topRight", true);
-      addAnchor(group, this.width, this.height, "bottomRight");
-      addAnchor(group, 0, this.height, "bottomLeft",true);
-      
+
+      var tr = new Konva.Transformer();
+      layer.add(tr);
+      tr.nodes([konvaImage]);
+
+      stage.on("click", function (e) {
+        // Check if the clicked target is not the image
+        if (e.target === stage) {
+          tr.nodes([]);
+        }
+ 
+        if (e.target == konvaImage) {
+          tr.nodes([konvaImage]);
+        }
+      });
     };
 
     group.on("contextmenu", function (e) {
@@ -57,13 +69,13 @@
 
       var anchorX = activeAnchor.x();
       var anchorY = activeAnchor.y();
-      
+
       // calculate new width and height while maintaining aspect ratio
       var width = image.width() * image.scaleX();
       var height = image.height() * image.scaleY();
       var oldTopLeftX = topLeft.x();
       var oldTopLeftY = topLeft.y();
-      
+
       var aspectRatio = width / height;
 
       var newWidth, newHeight;
@@ -71,19 +83,17 @@
         case "topLeft":
           newWidth = bottomRight.x() - anchorX;
           newHeight = newWidth / aspectRatio;
-          topRight.y(anchorY);
           topLeft.x(anchorX);
           break;
         case "topRight":
           newWidth = anchorX - topLeft.x();
           newHeight = newWidth / aspectRatio;
           topLeft.y(anchorY);
-          topRight.x(anchorX);
           break;
         case "bottomRight":
           newWidth = anchorX - topLeft.x();
           newHeight = newWidth / aspectRatio;
-          bottomLeft.y(anchorY);
+          bottomRight.y(anchorY);
           bottomRight.x(anchorX);
           break;
         case "bottomLeft":
@@ -103,23 +113,22 @@
       bottomRight.position({ x: newWidth, y: newHeight });
       bottomLeft.position({ x: 0, y: newHeight });
     }
-    function addAnchor(group, x, y, name, invisible = false, stroke = "#666", fill = "#ddd") {
+
+    function addAnchor(group, x, y, name) {
       var stage = group.getStage();
       var layer = group.getLayer();
-      if (invisible) {
-        stroke = "transparent";
-        fill = "transparent";
-      }
+
       var anchor = new Konva.Circle({
         x: x,
         y: y,
-        stroke: stroke,
-        fill: fill,
+        stroke: "#666",
+        fill: "#ddd",
         strokeWidth: 2,
         radius: 8,
         name: name,
         draggable: true,
         dragOnTop: false,
+        rotate: true,
       });
 
       anchor.on("dragmove", function () {
@@ -131,6 +140,9 @@
       });
       anchor.on("dragend", function () {
         group.draggable(true);
+      });
+      anchor.on("rotate", function () {
+        group.rotate(true);
       });
       // add hover styling
       anchor.on("mouseover", function () {
@@ -159,7 +171,6 @@
 
     var layer = new Konva.Layer();
     stage.add(layer);
-
   </script>
 </body>
 
