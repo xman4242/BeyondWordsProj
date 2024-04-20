@@ -2,6 +2,8 @@
   import { Stage, Layer, Rect, Image } from "svelte-konva";
   import { metadata, imgData } from "../metadata.js";
   import jsPDF from "jspdf";
+  import { onDestroy } from "svelte";
+  import Konva from "konva";
 
   export function saveAsPDF() {
     var stage = document.querySelector("canvas");
@@ -19,24 +21,28 @@
     var newImage = document.createElement("img");
     newImage.src = imagePath;
 
+    var tr = new Konva.Transformer();
+
     newImage.onload = function () {
+      var aspectRatio = newImage.width / newImage.height;
+      var scaledHeight = 200;
+      var scaledWidth = scaledHeight * aspectRatio;
       var konvaImage = new Konva.Image({
         image: newImage,
-        width: 200,
-        height: 200,
+        width: scaledWidth,
+        height: scaledHeight,
       });
       group.add(konvaImage);
 
-      var tr = new Konva.Transformer();
       layer.add(tr);
       tr.nodes([konvaImage]);
 
-      stage.on("click", function (e) {
+      stage.on("mouseover", function (e) {
         // Check if the clicked target is not the image
         if (e.target === stage) {
           tr.nodes([]);
         }
- 
+
         if (e.target == konvaImage) {
           tr.nodes([konvaImage]);
         }
@@ -46,6 +52,7 @@
     group.on("contextmenu", function (e) {
       e.evt.preventDefault(); // Prevent default right-click behavior
       group.remove(); // Remove the image group from the layer
+      tr.remove();
       layer.batchDraw(); // Redraw the layer
     });
 
@@ -59,108 +66,8 @@
     var width = window.innerWidth - 200; // Subtracting 200px for the sidebar width
     var height = window.innerHeight;
 
-    function update(activeAnchor) {
-      var group = activeAnchor.getParent();
-      var topLeft = group.findOne(".topLeft");
-      var topRight = group.findOne(".topRight");
-      var bottomRight = group.findOne(".bottomRight");
-      var bottomLeft = group.findOne(".bottomLeft");
+    function update() {
       var image = group.findOne("Image");
-
-      var anchorX = activeAnchor.x();
-      var anchorY = activeAnchor.y();
-
-      // calculate new width and height while maintaining aspect ratio
-      var width = image.width() * image.scaleX();
-      var height = image.height() * image.scaleY();
-      var oldTopLeftX = topLeft.x();
-      var oldTopLeftY = topLeft.y();
-
-      var aspectRatio = width / height;
-
-      var newWidth, newHeight;
-      switch (activeAnchor.getName()) {
-        case "topLeft":
-          newWidth = bottomRight.x() - anchorX;
-          newHeight = newWidth / aspectRatio;
-          topLeft.x(anchorX);
-          break;
-        case "topRight":
-          newWidth = anchorX - topLeft.x();
-          newHeight = newWidth / aspectRatio;
-          topLeft.y(anchorY);
-          break;
-        case "bottomRight":
-          newWidth = anchorX - topLeft.x();
-          newHeight = newWidth / aspectRatio;
-          bottomRight.y(anchorY);
-          bottomRight.x(anchorX);
-          break;
-        case "bottomLeft":
-          newWidth = topRight.x() - anchorX;
-          newHeight = newWidth / aspectRatio;
-          bottomRight.y(anchorY);
-          bottomLeft.x(anchorX);
-          break;
-      }
-
-      image.width(newWidth);
-      image.height(newHeight);
-
-      // update the position of the anchors
-      topLeft.position({ x: 0, y: 0 });
-      topRight.position({ x: newWidth, y: 0 });
-      bottomRight.position({ x: newWidth, y: newHeight });
-      bottomLeft.position({ x: 0, y: newHeight });
-    }
-
-    function addAnchor(group, x, y, name) {
-      var stage = group.getStage();
-      var layer = group.getLayer();
-
-      var anchor = new Konva.Circle({
-        x: x,
-        y: y,
-        stroke: "#666",
-        fill: "#ddd",
-        strokeWidth: 2,
-        radius: 8,
-        name: name,
-        draggable: true,
-        dragOnTop: false,
-        rotate: true,
-      });
-
-      anchor.on("dragmove", function () {
-        update(this);
-      });
-      anchor.on("mousedown touchstart", function () {
-        group.draggable(false);
-        this.moveToTop();
-      });
-      anchor.on("dragend", function () {
-        group.draggable(true);
-      });
-      anchor.on("rotate", function () {
-        group.rotate(true);
-      });
-      // add hover styling
-      anchor.on("mouseover", function () {
-        var layer = this.getLayer();
-        document.body.style.cursor = "pointer";
-        this.strokeWidth(4);
-      });
-      anchor.on("mouseout", function () {
-        var layer = this.getLayer();
-        document.body.style.cursor = "default";
-        this.strokeWidth(2);
-      });
-      group.add(anchor);
-    }
-
-    function deleteImage(group) {
-      group.destroy();
-      layer.draw();
     }
 
     var stage = new Konva.Stage({
