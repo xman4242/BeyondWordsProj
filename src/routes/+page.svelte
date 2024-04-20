@@ -6,8 +6,10 @@
 
 
 
+<div>
+    <Header />
+</div>
 
-<Header />
 <div class="MainDisplay">
     <Sidebar />
     <div>

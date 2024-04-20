@@ -8,7 +8,7 @@
 
     // Set the selectedImagePath variable to the path of the clicked image
     let selectedImagePath = imgData.clickedImg.path;
-
+    
     createDraggableImage(selectedImagePath);
   }
 </script>
@@ -39,7 +39,7 @@
     position: left;
     margin: auto;
     padding: 0;
-    width: 200px;
+    width: 15%;
     background-color: rgba(171, 25, 25, 0.779);
     display: flex;
     flex-direction: column;

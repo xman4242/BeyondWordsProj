@@ -1,6 +1,6 @@
 <script>
 	let logo = "images/UNMCLogo.svg";
-	import Resize, {saveAsPDF} from "./Resize.svelte";
+	import Resize, { saveAsPDF } from "./Resize.svelte";
 </script>
 
 <header>
@@ -20,19 +20,23 @@
 
 	<div class="corner">
 		<button on:click={saveAsPDF}> Print </button>
-		<img src={logo} alt="UNMC Logo" />
 	</div>
 </header>
 
 <style>
 	header {
 		display: flex;
+		align-items: center;
 		justify-content: space-between;
-		background-color: var(--background);
+		background-color: rgba(171, 25, 25, 0.779);/*var(--background);*/
 		height: 8vh; /* 8% of the viewport height */
-		width: 100%; /* 100% of the viewport width */
+		width: 85%; /* 100% of the viewport width */
+		margin-left: auto;
 	}
-
+	button {
+		background-color: rgba(156, 45, 51, 1);
+		color: white;
+	}
 	.corner {
 		width: 3em;
 		height: 3em;
