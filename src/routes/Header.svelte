@@ -26,23 +26,13 @@
 		color: #FDFFFC;
 	}
 	button {
-		background-color: rgba(156, 45, 51, 1);
-		color: white;
+		background-color: rgba(171, 25, 25, 0.779);
+		color: #FDFFFC;
+		border: none;
+		font-size: 1.2em;
 	}
 	.corner {
-		width: 3em;
-		height: 3em;
-	}
-
-	nav {
-		display: flex;
-		justify-content: center;
-		--background: rgba(255, 255, 255, 0.7);
-		--unmc_color: rgba(156, 45, 51, 1);
-	}
-
-	path {
-		fill: var(--unmc_color);
+		padding-right: 20px;
 	}
 
 	p {
@@ -57,12 +47,5 @@
 		list-style: none;
 		background: var(--unmc_color);
 		background-size: contain;
-	}
-
-	img {
-		padding: 0 0.5rem;
-		display: flex;
-		height: 100%;
-		align-items: center;
 	}
 </style>
