@@ -54,6 +54,7 @@
     text-align: center;
   }
   .sidebar-container img {
+    margin-top: 10px;
     margin-bottom: 10px;
     height: auto;
     width: 75px;
