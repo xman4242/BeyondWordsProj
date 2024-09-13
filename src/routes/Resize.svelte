@@ -69,7 +69,7 @@
 		var width = 1240; //window.innerWidth - 200; // Subtracting 200px for the sidebar width
 		var height = 1081; //window.innerHeight;
 		console.log("Inner W");
-		console.log(window.innerWidth);
+		//console.log(window.innerWidth);
 		function update() {
 			var image = group.findOne("Image");
 		}
